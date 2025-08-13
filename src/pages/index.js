@@ -130,7 +130,7 @@ const IndexPage = () => {
         Transpiled Gist Samples
       </h1>
       <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.js</code> to update this page 😎
+        Please Edit <code style={codeStyles}>src/pages/index.js</code> to update this page 😎
       </p>
       <ul style={listStyles}>
         <li style={docLinkStyle}>
