@@ -6,5 +6,14 @@ module.exports = {
     title: `GistTester`,
     siteUrl: `https://www.yourdomain.tld`,
   },
-  plugins: [],
+  plugins: [
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `content`,
+        path: `${__dirname}/src/content`,
+      },
+    },
+    `gatsby-transformer-remark`,    
+  ],
 }
