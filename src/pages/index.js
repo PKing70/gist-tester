@@ -16,7 +16,7 @@ const codeStyles = {
   borderRadius: 4,
 }
 
-const gistId = "e02ae1e95b28f6f2536b41ec94b8374d";
+const gistId = "e29082012c7b4380bb994f56d8fda7bf";
 const gistUser = "PKing70";
 
 const IndexPage = () => {
