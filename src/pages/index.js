@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useEffect, useState } from "react"
 
 const pageStyles = {
   color: "#232129",
@@ -118,17 +119,44 @@ const links = [
 ]
 
 const IndexPage = () => {
+  // Option 1 - Append gist script dynamically after mount
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://gist.github.com/PKing70/ce87f2e0f7aa3c02205101ccd6d32f42.js";
+    script.async = true;
+    const gistContainer = document.getElementById("gist-container");
+    if (gistContainer) {
+      gistContainer.innerHTML = ""; // clear if re-rendered
+      gistContainer.appendChild(script);
+    }
+  }, []);
+
+  // Option 2 - Fetch gist HTML from GitHub API
+  const [gistHtml, setGistHtml] = useState("");
+  useEffect(() => {
+    fetch("https://gist.github.com/PKing70/ce87f2e0f7aa3c02205101ccd6d32f42.js")
+      .then(res => res.text())
+      .then(js => {
+        // This is just an example - normally you'd parse and sanitize
+        setGistHtml(js);
+      })
+      .catch(err => console.error("Error fetching gist:", err));
+  }, []);
   return (
     <main style={pageStyles}>
       <h1 style={headingStyles}>
         Transpiled Gist Samples
       </h1>
       <p style={paragraphStyles}>
-        Don't Edit <code style={codeStyles}>src/pages/index.js</code> to update this page 😎
+        Editing <code style={codeStyles}>src/pages/index.js</code> updates this page 😎
       </p>      <p style={paragraphStyles}>
         Script starts here</p>
       <script src="https://gist.github.com/PKing70/ce87f2e0f7aa3c02205101ccd6d32f42.js"></script>
       <p>Script ends here</p>
+      <p style={paragraphStyles}>Option 1: Script injection via useEffect</p>
+      <div id="gist-container"></div>
+      <p style={paragraphStyles}>Option 2: Pre-fetched Gist HTML (raw, not executed)</p>
+      <div dangerouslySetInnerHTML={{ __html: gistHtml }} />
       <ul style={listStyles}>
         <li style={docLinkStyle}>
           <a
