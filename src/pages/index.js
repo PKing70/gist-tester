@@ -107,14 +107,12 @@ const IndexPage = () => {
     <main style={pageStyles}>
       <h1 style={headingStyles}>Transpiled Gist Samples</h1>
       <p style={paragraphStyles}>
-        Don't Edit <code style={codeStyles}>src/pages/index.js</code> to update this page 😎
+        Edit <code style={codeStyles}>src/pages/index.js</code> to update this page 😎
       </p>
 
       {/* Option 0 */}
       <p style={paragraphStyles}>Option 0: Original inline script (will not work in React/Gatsby)</p>
-      <p>Script starts here</p>
       <script src={`https://gist.github.com/${gistUser}/${gistId}.js`}></script>
-      <p>Script ends here</p>
 
       {/* Option 1 */}
       <p style={paragraphStyles}>Option 1: Script injection via useEffect</p>
