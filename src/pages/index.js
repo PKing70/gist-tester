@@ -132,6 +132,7 @@ const IndexPage = () => {
       <p style={paragraphStyles}>
         Don't Edit <code style={codeStyles}>src/pages/index.js</code> to update this page 😎
       </p>
+      <script src="https://gist.github.com/PKing70/ce87f2e0f7aa3c02205101ccd6d32f42.js"></script>
       <ul style={listStyles}>
         <li style={docLinkStyle}>
           <a
