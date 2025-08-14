@@ -57,61 +57,50 @@ const IndexPage = () => {
       .catch(err => console.error("Error fetching gist JSON:", err));
   }, []);
 
-  // Option 4 - Raw Gist code with syntax highlighting (JavaScript only)
+  // Option 4 - Raw Gist code with syntax highlighting (JavaScript) using CDN
   const [highlightedCode, setHighlightedCode] = useState("");
   useEffect(() => {
-    Promise.all([
+    if (typeof window !== "undefined" && window.hljs) {
       fetch(`https://api.github.com/gists/${gistId}`)
         .then(res => res.json())
         .then(data => {
           const firstFileKey = Object.keys(data.files)[0];
-          const rawUrl = data.files[firstFileKey].raw_url;
-          return fetch(rawUrl).then(res => res.text());
-        }),
-      import("highlight.js/lib/core"),
-      import("highlight.js/lib/languages/javascript"),
-    ]).then(([code, hljs, jsLang]) => {
-      hljs.registerLanguage("javascript", jsLang.default);
-      const result = hljs.highlight(code, { language: "javascript" });
-      setHighlightedCode(result.value);
-    }).catch(err => console.error("Error highlighting gist:", err));
+          return fetch(data.files[firstFileKey].raw_url);
+        })
+        .then(res => res.text())
+        .then(code => {
+          const highlighted = window.hljs.highlight(code, { language: "javascript" }).value;
+          setHighlightedCode(highlighted);
+        })
+        .catch(err => console.error("Error highlighting gist:", err));
+    }
   }, []);
 
-  // Option 5 - Raw Gist code with syntax highlighting & auto language detection
+  // Option 5 - Raw Gist code with syntax highlighting (auto-detected language) using CDN
   const [highlightedCodeAuto, setHighlightedCodeAuto] = useState("");
   useEffect(() => {
-    (async () => {
-      try {
-        const gistData = await fetch(`https://api.github.com/gists/${gistId}`).then(res => res.json());
-        const firstFileKey = Object.keys(gistData.files)[0];
-        const rawUrl = gistData.files[firstFileKey].raw_url;
-        const filename = gistData.files[firstFileKey].filename;
-        const ext = filename.split(".").pop().toLowerCase();
+    if (typeof window !== "undefined" && window.hljs) {
+      fetch(`https://api.github.com/gists/${gistId}`)
+        .then(res => res.json())
+        .then(async data => {
+          const firstFileKey = Object.keys(data.files)[0];
+          const file = data.files[firstFileKey];
+          const rawUrl = file.raw_url;
+          const filename = file.filename;
+          const ext = filename.split(".").pop().toLowerCase();
+          const code = await fetch(rawUrl).then(r => r.text());
 
-        const code = await fetch(rawUrl).then(res => res.text());
-
-        const hljs = (await import("highlight.js/lib/core")).default;
-
-        // Try to dynamically import language module based on extension
-        let langModule;
-        try {
-          langModule = await import(`highlight.js/lib/languages/${ext}`);
-        } catch {
-          console.warn(`No highlight.js language found for extension: ${ext}, falling back to auto-detect`);
-        }
-
-        if (langModule) {
-          hljs.registerLanguage(ext, langModule.default);
-          const result = hljs.highlight(code, { language: ext });
-          setHighlightedCodeAuto(result.value);
-        } else {
-          const result = hljs.highlightAuto(code);
-          setHighlightedCodeAuto(result.value);
-        }
-      } catch (err) {
-        console.error("Error in Option 5 highlighting:", err);
-      }
-    })();
+          // Try to highlight using the extension if possible
+          let highlighted;
+          try {
+            highlighted = window.hljs.highlight(code, { language: ext }).value;
+          } catch {
+            highlighted = window.hljs.highlightAuto(code).value;
+          }
+          setHighlightedCodeAuto(highlighted);
+        })
+        .catch(err => console.error("Error highlighting gist:", err));
+    }
   }, []);
 
   return (
@@ -142,7 +131,7 @@ const IndexPage = () => {
       <div dangerouslySetInnerHTML={{ __html: gistHtmlJson }} />
 
       {/* Option 4 */}
-      <p style={paragraphStyles}>Option 4: Raw Gist code with syntax highlighting (JavaScript only)</p>
+      <p style={paragraphStyles}>Option 4: Raw Gist code with syntax highlighting (JavaScript)</p>
       <pre style={{ background: "#f0f0f0", padding: "1em", overflowX: "auto" }}>
         <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
       </pre>
@@ -161,7 +150,11 @@ export default IndexPage
 export const Head = () => (
   <>
     <title>Home Page</title>
+    {/* Gist embed CSS */}
     <link rel="stylesheet" href="https://gist.github.com/stylesheets/gist/embed.css" />
+    {/* Highlight.js CSS */}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+    {/* Highlight.js script */}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   </>
 )
