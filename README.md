@@ -4,14 +4,14 @@
   </a>
 </p>
 <h1 align="center">
-  Gatsby Minimal Starter
+  Gist-Tester Gatsby Site
 </h1>
 
-## 🚀 Quick start
+## 🚀 Gist-Tester
 
-1.  **Create a Gatsby site.**
+1.  **Copy this Gatsby site.**
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+    Pre-reqs: you're ready for Gatsby, which is the site generator for [devportal](https://dev.splunk.com). If not, read their [Documentation](https://www.gatsbyjs.com/docs/) first.
 
     ```shell
     # create a new Gatsby site using the minimal starter
@@ -31,7 +31,7 @@
 
     Your site is now running at http://localhost:8000!
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+    Edit `src/pages/index.js` to see the site update in real-time!
 
 4.  **Learn more**
 
@@ -44,6 +44,4 @@
 
 ## 🚀 Quick start (Netlify)
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
-
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal)
+This (original) site has been deployed on Patrick's [Netlify](https://app.netlify.com/teams/pking70). You can do your own yourself, or ask him about it!
