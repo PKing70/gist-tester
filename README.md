@@ -45,3 +45,9 @@
 ## 🚀 Quick start (Netlify)
 
 This (original) site has been deployed on Patrick's [Netlify](https://app.netlify.com/teams/pking70). You can do your own yourself, or ask him about it!
+
+## 🚀 Source
+
+[https://github.com/PKing70/gist-tester](https://github.com/PKing70/gist-tester)
+[https://github.com/PKing70/aiwrap](https://github.com/PKing70/aiwrap)
+
