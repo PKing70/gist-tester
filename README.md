@@ -39,6 +39,6 @@ This (original) site has been deployed on Patrick's [Netlify](https://app.netlif
 
 ## 🚀 Source
 
-[https://github.com/PKing70/gist-tester](https://github.com/PKing70/gist-tester)
-[https://github.com/PKing70/aiwrap](https://github.com/PKing70/aiwrap)
+- [https://github.com/PKing70/gist-tester](https://github.com/PKing70/gist-tester)
+- [https://github.com/PKing70/aiwrap](https://github.com/PKing70/aiwrap)
 
