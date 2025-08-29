@@ -35,7 +35,7 @@
 
 ## 🚀 Quick start (Netlify)
 
-This (original) site has been deployed on Patrick's [Netlify](https://app.netlify.com/teams/pking70). You can do your own yourself, or ask him about it!
+This (original) site has been deployed on Patrick's [Netlify](https://gist-tester.netlify.app/)) server. You can do your own yourself, or ask him about it!
 
 ## 🚀 Source
 
